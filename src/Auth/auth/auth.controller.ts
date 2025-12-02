@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { RegisterDto } from '../DTOs/register.dto';
 import { LoginDTO } from '../DTOs/login.dto';
 import { UserInterceptor } from '../Interceptors/user.interceptor';
+import { ValidateUserPipe } from '../Pipes/validatePasLength.pipe';
 
 
 @Controller('auth')
@@ -11,7 +12,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService){}
 
   @Post('register')
-  async registerUser(@Body(new ValidationPipe()) registerUserDTO: RegisterDto){
+  async registerUser(@Body(new ValidationPipe(), new ValidateUserPipe()) registerUserDTO: RegisterDto){
 
     const {email, password} = registerUserDTO;
 

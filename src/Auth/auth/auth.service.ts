@@ -28,13 +28,4 @@ export class AuthService {
 
         return data
     }
-
-    //get the porfile of the logedIn user
-
-    async getProfileInfo(token: string){
-
-        const {data:{user}, error} = await this.supabase.auth.getUser(token);
-
-        
-    }
 }
