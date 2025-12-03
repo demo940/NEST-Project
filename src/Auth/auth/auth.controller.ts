@@ -3,6 +3,8 @@ import { AuthService } from './auth.service';
 import { RegisterDto } from '../DTOs/register.dto';
 import { LoginDTO } from '../DTOs/login.dto';
 import { ValidateUserPipe } from '../Pipes/validatePasLength.pipe';
+import { RefreshTokenDto } from '../DTOs/refreshToken.dto';
+import { RefreshResponseDto } from '../DTOs/refreshRes.dto';
 
 
 @Controller('auth')
@@ -29,4 +31,11 @@ export class AuthController {
     return logedInUser;
 
   }
+
+  //Get new AccessToken
+   @Post('refresh')
+  async refresh(@Body() body: RefreshTokenDto): Promise<RefreshResponseDto> {
+    return this.authService.getNewAccessToken(body.refreshToken);
+  }
+
 }

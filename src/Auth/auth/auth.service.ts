@@ -2,6 +2,7 @@ import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { SUPABASE } from '../supabase.provider';
 import { RegisterResponseDTO } from '../DTOs/registerResponse.dto';
 import { LoginResponseDTO } from '../DTOs/loginResponse.dto';
+import { RefreshResponseDto } from '../DTOs/refreshRes.dto';
 
 @Injectable()
 export class AuthService {
@@ -39,4 +40,19 @@ export class AuthService {
             refreshToken: data.session.refresh_token
         }
     }
+
+    async getNewAccessToken(refreshToken: string): Promise<RefreshResponseDto> {
+
+        const { data, error } = await this.supabase.auth.refreshSession({ refresh_token: refreshToken });
+
+        if (error || !data.session) {
+            throw new UnauthorizedException('Invalid or expired refresh token');
+        }
+
+        return {
+            accessToken: data.session.access_token,
+            expiresAt: data.session.expires_at?.toString() || '',
+        };
+    }
+
 }
