@@ -3,7 +3,7 @@ import { map } from 'rxjs/operators';
 import { Response } from 'express';
 
 @Injectable()
-export class UserInterceptor implements NestInterceptor {
+export class StandardResInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler) {
     return next.handle().pipe(
       map((data) => {

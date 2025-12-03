@@ -2,12 +2,10 @@ import { Body, Controller, Post, UseInterceptors, ValidationPipe } from '@nestjs
 import { AuthService } from './auth.service';
 import { RegisterDto } from '../DTOs/register.dto';
 import { LoginDTO } from '../DTOs/login.dto';
-import { UserInterceptor } from '../Interceptors/user.interceptor';
 import { ValidateUserPipe } from '../Pipes/validatePasLength.pipe';
 
 
 @Controller('auth')
-@UseInterceptors(UserInterceptor)
 export class AuthController {
   constructor(private readonly authService: AuthService){}
 
